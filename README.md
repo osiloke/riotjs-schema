@@ -12,8 +12,10 @@ import 'riot-schema/components/muicss-form';
 import riot from 'riot';
 
 <A-Form>
-<div name="form" action="Create"/>
-
+<form onsubmit={submit}>
+<div name="content" action="Create"/>
+<button type="submit">Create</button>
+</form>
 <script>
 
 let schema = {
@@ -36,8 +38,11 @@ let schema = {
     "hello"
   ]
 }
-
-riot.mount(self.form, "schema-form", {parent: self, schema: schema})
+let self = this
+riot.mount(self.content, "schema-form", {parent: self, schema: schema})
+self.submit = () =>{ 
+	console.log(JSON.stringify(self.content.data))
+}
 </script>
 </A-Form>
 ```

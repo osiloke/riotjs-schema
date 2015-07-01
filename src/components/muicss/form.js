@@ -54,14 +54,8 @@ function reflectionSet(obj, prop, value) {
 		self.update()
 	})
 
-	self.updateValue = (id, v) => {
-		// if (v === null){
-		// 	self.data[id] = null
-		// 	delete self.data[id]
-		// }else{ 
-		reflectionSet(self.data, id, v) 
-		// }
-		console.log(JSON.stringify(self.data))
+	self.updateValue = (id, v) => { 
+		reflectionSet(self.data, id, v)  
 	}
 	</script>
 </schema-form> 
