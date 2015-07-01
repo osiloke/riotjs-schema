@@ -13,12 +13,13 @@ import riot from 'riot';
 
 <A-Form>
 <form onsubmit={submit}>
+<!--schema-form schema={self.schema}/-->
 <div name="content" action="Create"/>
 <button type="submit">Create</button>
 </form>
 <script>
 
-let schema = {
+self.schema = {
   "$schema": "http://json-schema.org/draft-04/schema#",
   "id": "hello",
   "type": "object",

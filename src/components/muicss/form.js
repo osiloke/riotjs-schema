@@ -46,16 +46,23 @@ function reflectionSet(obj, prop, value) {
 		loadSchema(self, schema)
 	}
 
-	self.on('mount', () =>{ 
-		if (self.opts.parent){
-			self.parent = self.opts.parent
+	self.on('mount', () =>{  
+		if (self.opts.parent)
+			self.parent = self.opts.parent 
+		if(self.opts.schema){ 
+			loadSchema(self, self.opts.schema)
 		}
-		loadSchema(self, self.opts.schema)
 		self.update()
 	})
 
-	self.updateValue = (id, v) => { 
-		reflectionSet(self.data, id, v)  
+	self.updateValue = (id, val) => { 
+		// reflectionSet(self.data, id, v)  
+		if (val === '' || val === null)
+			{   
+				delete self.data[id]  
+			}else{ 
+				self.data[id] = val 
+			} 
 	}
 	</script>
 </schema-form> 

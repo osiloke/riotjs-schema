@@ -23,8 +23,7 @@ import {loadSchema} from '../../utils/form';
 			.then((schema) =>{
 				self.opts.schema = schema 
 				loadSchema(self, schema.schema, self.content)
-				self.update()
-				// riot.mount(self.ref_form, "schema-ref-form", {parent: self, schema: schema.schema}) 
+				self.update() 
 			})
 			.catch((err) =>{
 				console.log(err)
@@ -42,11 +41,19 @@ import {loadSchema} from '../../utils/form';
 	self.updateValue = 
 	// _.debounce(
 		(id, val) => { 
-			if (val === '')
-			{ 
-				self.opts.parent.updateValue(`${self.opts.field.id}.${id}`, null)
+			if (val === '' || val === null)
+			{   
+				delete self.data[id]
+				if (_.isEmpty(self.data)){
+					self.opts.parent.updateValue(self.opts.field.id, null)
+				}else{ 
+					self.opts.parent.updateValue(self.opts.field.id, self.data)
+				}
+				// self.opts.parent.updateValue(`${self.opts.field.id}.${id}`, null)
 			}else{ 
-				self.opts.parent.updateValue(`${self.opts.field.id}.${id}`, val)
+				self.data[id] = val
+				self.opts.parent.updateValue(self.opts.field.id, self.data)
+				// self.opts.parent.updateValue(`${self.opts.field.id}.${id}`, val)
 			} 
 		}
 	// , 300)
