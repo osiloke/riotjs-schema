@@ -39,9 +39,9 @@ let schema = {
   ]
 }
 let self = this
-riot.mount(self.content, "schema-form", {parent: self, schema: schema})
+self.schema_form = riot.mount(self.content, "schema-form", {parent: self, schema: schema})[0]
 self.submit = () =>{ 
-	console.log(JSON.stringify(self.content.data))
+	console.log(JSON.stringify(self.schema_form.data))
 }
 </script>
 </A-Form>
