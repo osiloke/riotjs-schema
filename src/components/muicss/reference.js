@@ -2,10 +2,17 @@ import riot from 'riot';
 import _ from 'underscore'; 
 import {loadSchema} from '../../utils/form';
 
-
 <schema-ref> 
+	<style scoped>
+		.mui-form-group > form.required ~ label:after {
+		  content: ' *';
+		}
+		form{
+			background: #F5F5F5;
+		}
+	</style>
 	<div class="mui-form-group"> 
-	<form class="mui-z1" style="padding:20px" name="content" onsubmit={submit}></form> 
+	<form class="{required: opts.required}" style="padding:20px" name="content" onsubmit={submit}></form>  
 	<label if={!opts.field.description || opts.show_title} for="{opts.field.id}">{opts.field.description}</label>
 	</div>
 
@@ -16,12 +23,12 @@ import {loadSchema} from '../../utils/form';
 
 	self.submit = (ev) => {
 		ev.preventDefault()
-	}
+	} 
 	if (!self.opts.schema){ 
 		try{ 	 
 			self.opts.parent.getSchema(self.opts.field.$ref)
 			.then((schema) =>{
-				self.opts.schema = schema 
+				self.opts.schema = schema.schema
 				loadSchema(self, schema.schema, self.content)
 				self.update() 
 			})
@@ -31,6 +38,9 @@ import {loadSchema} from '../../utils/form';
 		}catch(err){
 			console.log(err.stack)
 		} 
+	}else{
+		loadSchema(self, self.opts.schema, self.content)
+		self.update() 
 	}
 	self.placeholder = () => {
 		if (!self.opts.floating_label){

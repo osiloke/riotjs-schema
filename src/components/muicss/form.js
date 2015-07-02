@@ -2,26 +2,6 @@ import riot from 'riot';
 import {loadSchema, createInputField} from '../../utils/form';
 import _ from 'lodash';
 
-function reflectionSet(obj, prop, value) {
-    prop = prop.split('.');
-    var root = obj, i;
-    var last_root;
-    for(i=0; i<prop.length; i++) { 
-        if(typeof root[prop[i]] == 'undefined') root[prop[i]] = {};
-        if (i === prop.length-1 && value === null){
-        	delete root[prop[i]]  
-        	if (typeof last_root !== 'undefined' && _.isEmpty(last_root[prop[i-1]])){ 
-        		delete last_root[prop[i-1]]
-        	}
-        }else{ 
-	        if(i === prop.length - 1) root[prop[i]] = value;
-	        last_root = root
-	        root = root[prop[i]];
-	      }
-
-    }
-    return obj;
-};
 <schema-form> 
 	<legend show={schema}>{opts.action} {schema.title}</legend>
 
@@ -55,14 +35,16 @@ function reflectionSet(obj, prop, value) {
 		self.update()
 	})
 
-	self.updateValue = (id, val) => { 
-		// reflectionSet(self.data, id, v)  
+	self.updateValue = (id, val) => {   
 		if (val === '' || val === null)
 			{   
 				delete self.data[id]  
 			}else{ 
 				self.data[id] = val 
 			} 
+
+			console.log(`form:${self.opts.schema.id}_changed`, self.data)
+			self.trigger(`form:${self.opts.schema.id}_changed`, self.data)
 	}
 	</script>
 </schema-form> 

@@ -3,7 +3,7 @@ import _ from 'underscore';
 
 <schema-textarea> 
 	<div class="mui-form-group">
-	<textarea placeholder={placeholder()} onchange={updateValue} onkeyup={updateValue} onpaste={updateValue} name="input" type="textarea" value="{opts.value}" class="mui-form-control"></textarea>
+	<textarea required={opts.required} placeholder={placeholder()} onchange={updateValue} onkeyup={updateValue} onpaste={updateValue} name="input" type="textarea" value="{opts.value}" class="mui-form-control"></textarea>
 	<label if={!opts.field.description || opts.show_title} class="{mui-form-floating-label: opts.floating_label}" for="{opts.field.name}">{opts.field.description}</label>
 	</div>
 

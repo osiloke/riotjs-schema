@@ -12,6 +12,7 @@
   "dependencies": {
     "es6-promise": "npm:es6-promise@^2.3.0",
     "osiloke/gulp-helpers": "master",
+    "tcomb-json-schema": "gcanti/tcomb-json-schema@^0.1.4",
     "whatwg-fetch": "npm:whatwg-fetch@^0.9.0"
   },
   "devDependencies": {
